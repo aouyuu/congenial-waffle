@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/aouyuu/thai-flood-radar/routes"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,5 +12,7 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.Run(":5443")
+	r.GET("/affacted", routes.GetAffactedAreas)
+	r.GET("affected/overview", routes.GetAffactedAreasOverview)
+	r.Run(":8080")
 }
