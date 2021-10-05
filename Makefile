@@ -3,7 +3,7 @@ GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-BINARY_NAME=auth_connector
+BINARY_NAME=flood_radar
 BINARY_UNIX=$(BINARY_NAME)_unix
 GOMOD=$(GOCMD) mod
 
