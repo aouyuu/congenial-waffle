@@ -1,0 +1,154 @@
+openapi: 3.0.1
+info:
+  title: Thai Flood Api
+  version: 1.0.0
+servers:
+- url: /v1
+paths:
+  /affected/overview:
+    get:
+      summary: Get all affected area
+      operationId: getAllArea
+      parameters:
+        - in: query
+          name: date
+          schema:
+            type: integer
+          required: true
+          description: Epoch second
+      responses:
+        200:
+          description: Return overview result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverviewAffectedAreas'
+  /affected:
+    get:
+      summary: Get specific area details
+      operationId: getSpecificArea
+      parameters:
+        - in: query
+          name: provinceId
+          schema:
+            type: integer
+          required: true
+          description: Province Id
+        - in: query
+          name: fromDate
+          schema:
+            type: integer
+          required: true
+          description: Epoch second
+        - in: query
+          name: toDate
+          schema:
+            type: integer
+          required: true
+          description: Epoch second
+      responses:
+        200:
+          description: Return overview result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffectedProvince'
+        405:
+          description: Invalid province id
+          content: {}
+components:
+  schemas:
+    OverviewAffectedAreas:
+      type: object
+      properties:
+        updateTimestamp:
+          type: integer
+          format: int64
+          description: Epoch of last updated datas
+          example: 1633354920
+        date:
+          type: integer
+          format: int64
+          description: Date of datas
+          example: 1633354920
+        affectedAreas:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverviewAffectedArea'
+    OverviewAffectedArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 66
+          description: Province Id
+        name:
+          type: string
+          example: "ขอนแก่น"
+        affected:
+          type: integer
+          format: int64
+          description: Amount of affected area
+          example: 125867
+    AffectedProvince:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 66
+          description: Province Id
+        updateTimestamp:
+          type: integer
+          format: int64
+          description: Epoch of last updated datas
+          example: 1633354920
+        name:
+          type: string
+          example: "ขอนแก่น"
+        district:
+          type: array
+          items:
+            $ref: '#/components/schemas/AffectedDistrict'
+    AffectedDistrict:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+          description: District Id
+        updateTimestamp:
+          type: integer
+          format: int64
+          description: Epoch of last updated datas
+          example: 1633354920
+        name:
+          type: string
+          example: "เมืองขอนแก่น"
+        subdistrict:
+          type: array
+          items:
+            $ref: '#/components/schemas/AffectedSubdistrict'
+    AffectedSubdistrict:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+          description: Subdistrict Id
+        updateTimestamp:
+          type: integer
+          format: int64
+          description: Epoch of last updated datas
+          example: 1633354920
+        name:
+          type: string
+          example: "ในเมือง"
+        affected:
+          type: integer
+          format: int64
+          description: Amount of affected area
+          example: 125867
