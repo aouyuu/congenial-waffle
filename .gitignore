@@ -53,3 +53,5 @@ vendor/
 
 build/
 .env
+
+./openapi.yaml
