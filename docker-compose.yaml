@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=mydb
+    restart: always
+    build:
+      context: ./data/db
+      dockerfile: Dockerfile
+
+  web:
+    image: go-1.17
+    ports:
+      - "8080:8080"
+    
